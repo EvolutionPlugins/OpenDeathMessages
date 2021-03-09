@@ -8,6 +8,7 @@ using SDG.Unturned;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace EvolutionPlugins.OpenDeathMessages.Events
@@ -43,6 +44,9 @@ namespace EvolutionPlugins.OpenDeathMessages.Events
             }
 
             var deathPositionUVector = @event.DeathPosition.ToUnityVector();
+            var distance = Vector3.Distance(victimUser.Player.Transform.Position,
+                instigatorUser?.Player.Transform.Position ?? victimUser.Player.Transform.Position);
+
             var nearNode = LevelNodes.nodes.Cast<LocationNode>()
                 .OrderBy(x => (x.point - deathPositionUVector).sqrMagnitude)
                 .FirstOrDefault();
@@ -52,47 +56,10 @@ namespace EvolutionPlugins.OpenDeathMessages.Events
                 Victim = victimUser,
                 Instigator = instigatorUser,
                 @event.DeathPosition,
+                Distance = distance,
                 Node = nearNode?.name, // can smartFormat parse fields?
                 Limb = m_StringLocalizer[$"limbParse:{@event.Limb.ToString().ToLower()}"].Value
             }]);
-        }
-
-        /// <summary>
-        /// If player is null or doesn't exits, it should be used
-        /// </summary>
-        private class DummyUser : IUser
-        {
-            public IUserSession? Session => throw new NotImplementedException();
-
-            public IUserProvider? Provider => null!;
-
-            public string Id => DisplayName;
-
-            public string Type => DisplayName;
-
-            public string DisplayName => "<unknown>";
-
-            public string FullActorName => DisplayName;
-
-            public Task<T?> GetPersistentDataAsync<T>(string key)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Task PrintMessageAsync(string message)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Task PrintMessageAsync(string message, Color color)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Task SavePersistentDataAsync<T>(string key, T? data)
-            {
-                throw new NotImplementedException();
-            }
         }
     }
 }

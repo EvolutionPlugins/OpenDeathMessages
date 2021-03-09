@@ -5,6 +5,7 @@
 # DeathPosition: The position where Victim is dead
 # Limb: The limb 
 # Node: The nearest location name (can be null)
+# Distance: The distance between Instigator and Victim
 
 limbParse:
   leftFoot: leg
