@@ -1,10 +1,6 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
-using Cysharp.Threading.Tasks;
+﻿using OpenMod.API.Plugins;
 using OpenMod.Unturned.Plugins;
-using OpenMod.API.Plugins;
+using System;
 
 [assembly: PluginMetadata("EvolutionPlugins.OpenDeathMessages", Author = "EvolutionPlugins", DisplayName = "Open Death Messages",
     Website = "https://discord.gg/5MT2yke")]

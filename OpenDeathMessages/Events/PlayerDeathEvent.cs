@@ -5,8 +5,6 @@ using OpenMod.UnityEngine.Extensions;
 using OpenMod.Unturned.Players.Life.Events;
 using OpenMod.Unturned.Users;
 using SDG.Unturned;
-using System;
-using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;

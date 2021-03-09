@@ -1,4 +1,8 @@
-
+# Read about how setup rich text (e.g. colors, bold): http://digitalnativestudios.com/textmeshpro/docs/rich-text/
+# Read about how works SmartFormat: https://github.com/axuno/SmartFormat/wiki
+#
+# There are many parameters that I can't describe, so you can get help in my discord: https://discord.gg/5MT2yke
+#
 # Possible parameters:
 # Instigator: The killer of Victim (can be null)
 #   Instigator.DisplayName
@@ -8,8 +12,6 @@
 #   Instigator.Player.Health - Get killer health
 #   Instigator.Player.Player.equipment.asset.itemName - Get killer equipment name (asset can be null): Example {Instigator:choose(null):|{Player.Player.equipment.asset:choose(null):unknow|with a {itemName}}}
 #   Instigator.Player.Transform.Position - Get killer position
-#
-#  There are many parameters that I can't describe, so you can get help in my discord: https://discord.gg/5MT2yke
 #
 # Victim: The death player (parameters are the same for Instigator, only change Instigator -> Victim)
 # DeathPosition: The position where Victim is dead
