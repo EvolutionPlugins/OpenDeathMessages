@@ -4,7 +4,7 @@
 # Victim: The death player
 # DeathPosition: The position where Victim is dead
 # Limb: The limb 
-# Node.name: The nearest node (can be null)
+# Node: The nearest location name (can be null)
 
 limbParse:
   leftFoot: leg

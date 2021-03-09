@@ -42,9 +42,9 @@ namespace EvolutionPlugins.OpenDeathMessages.Events
                 return;
             }
 
-            var uVector = @event.DeathPosition.ToUnityVector();
+            var deathPositionUVector = @event.DeathPosition.ToUnityVector();
             var nearNode = LevelNodes.nodes.Cast<LocationNode>()
-                .OrderBy(x => (x.point - uVector).sqrMagnitude)
+                .OrderBy(x => (x.point - deathPositionUVector).sqrMagnitude)
                 .FirstOrDefault();
 
             await provider.BroadcastAsync(m_StringLocalizer[$"deathCause:{@event.DeathCause.ToString().ToLower()}", new
@@ -52,6 +52,7 @@ namespace EvolutionPlugins.OpenDeathMessages.Events
                 Victim = victimUser,
                 Instigator = instigatorUser,
                 @event.DeathPosition,
+                Node = nearNode?.name, // can smartFormat parse fields?
                 Limb = m_StringLocalizer[$"limbParse:{@event.Limb.ToString().ToLower()}"].Value
             }]);
         }

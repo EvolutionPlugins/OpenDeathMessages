@@ -10,7 +10,7 @@ using System;
 
 namespace EvolutionPlugins.OpenDeathMessages.Test
 {
-    [Command("kill")]
+    [Command("comm")]
     public class Cooo : UnturnedCommand
     {
         public Cooo(IServiceProvider serviceProvider) : base(serviceProvider)
