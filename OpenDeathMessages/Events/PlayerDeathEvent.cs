@@ -45,7 +45,7 @@ namespace EvolutionPlugins.OpenDeathMessages.Events
             var distance = Vector3.Distance(victimUser.Player.Transform.Position,
                 instigatorUser?.Player.Transform.Position ?? victimUser.Player.Transform.Position);
 
-            var nearNode = LevelNodes.nodes.Cast<LocationNode>()
+            var nearNode = LevelNodes.nodes.OfType<LocationNode>()
                 .OrderBy(x => (x.point - deathPositionUVector).sqrMagnitude)
                 .FirstOrDefault();
 
