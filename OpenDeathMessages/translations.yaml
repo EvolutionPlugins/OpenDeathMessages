@@ -1,9 +1,19 @@
 
-# Possible parameteres:
+# Possible parameters:
 # Instigator: The killer of Victim (can be null)
-# Victim: The death player
+#   Instigator.DisplayName
+#   Instigator.Id
+#   Instigator.Type
+#   Instigator.FullActorName
+#   Instigator.Player.Health - Get killer health
+#   Instigator.Player.Player.equipment.asset.itemName - Get killer equipment name (asset can be null): Example {Instigator:choose(null):|{Player.Player.equipment.asset:choose(null):unknow|with a {itemName}}}
+#   Instigator.Player.Transform.Position - Get killer position
+#
+#  There are many parameters that I can't describe, so you can get help in my discord: https://discord.gg/5MT2yke
+#
+# Victim: The death player (parameters are the same for Instigator, only change Instigator -> Victim)
 # DeathPosition: The position where Victim is dead
-# Limb: The limb 
+# Limb: The parsed limb 
 # Node: The nearest location name (can be null)
 # Distance: The distance between Instigator and Victim
 
@@ -26,8 +36,8 @@ deathCause:
   burning: "{Victim.DisplayName} was burned to death"
   food: "{Victim.DisplayName} was starved to death"
   water: "{Victim.DisplayName} was dehydrated to death"
-  gun: "{Victim.DisplayName} was shot in the {Limb} {Instigator:choose(null):|by {DisplayName}}"
-  melee: "{Victim.DisplayName} was chopped in the {Limb} {Instigator:choose(null):|by {DisplayName}}"
+  gun: "{Victim.DisplayName} was shot in the {Limb} {Instigator:choose(null):|by {DisplayName}} {Instigator:choose(null):|by {DisplayName}} {Instigator:choose(null):|{Player.Player.equipment.asset:choose(null):unknow|with a {itemName}}}"
+  melee: "{Victim.DisplayName} was chopped in the {Limb} {Instigator:choose(null):|by {DisplayName}} {Instigator:choose(null):|by {DisplayName}} {Instigator:choose(null):|{Player.Player.equipment.asset:choose(null):unknow|with a {itemName}}}"
   zombie: "{Victim.DisplayName} was mauled by a zombie"
   animal: "{Victim.DisplayName} was mauled by an animal"
   suicide: "{Victim.DisplayName} was suicided"
