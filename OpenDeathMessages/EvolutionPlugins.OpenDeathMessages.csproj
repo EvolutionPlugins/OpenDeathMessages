@@ -16,6 +16,10 @@
     <InformationalVersion>0.0.0</InformationalVersion>
     <PackageVersion>0.0.0</PackageVersion>
     <Authors>EvolutionPlugins</Authors>
+    <Description>Death messenger for OpenMod / Unturned.</Description>
+    <RepositoryUrl>https://github.com/EvolutionPlugins/OpenDeathMessages</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/EvolutionPlugins/OpenDeathMessages</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
