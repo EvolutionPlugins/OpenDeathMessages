@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 using OpenMod.Unturned.Plugins;
 using OpenMod.API.Plugins;
 
-[assembly: PluginMetadata("OpenDeathMessages", Author = "EvolutionPlugins", DisplayName = "Open Death Messages",
+[assembly: PluginMetadata("EvolutionPlugins.OpenDeathMessages", Author = "EvolutionPlugins", DisplayName = "Open Death Messages",
     Website = "https://discord.gg/5MT2yke")]
 
 namespace EvolutionPlugins.OpenDeathMessages

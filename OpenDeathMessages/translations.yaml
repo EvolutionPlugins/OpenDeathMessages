@@ -1,0 +1,51 @@
+
+# Possible parameteres:
+# Instigator: The killer of Victim (can be null)
+# Victim: The death player
+# DeathPosition: The position where Victim is dead
+# Limb: The limb 
+# Node.name: The nearest node (can be null)
+
+limbParse:
+  leftFoot: leg
+  leftLeg: leg
+  rightFoot: leg
+  rightLeg: leg
+  leftHand: arm
+  leftArm: arm
+  rightHand: arm
+  rightArm: arm
+  spine: torso
+  skull: head
+
+deathCause:
+  bleeding: "{Victim.DisplayName} was bleedout {Instigator:choose(null):|by {DisplayName}}" # If `Instigator` is null then doesn't show anything, else show `by DisplayName`
+  bones: "{Victim.DisplayName} was fractured to death" 
+  freezing: "{Victim.DisplayName} was froze to death"
+  burning: "{Victim.DisplayName} was burned to death"
+  food: "{Victim.DisplayName} was starved to death"
+  water: "{Victim.DisplayName} was dehydrated to death"
+  gun: "{Victim.DisplayName} was shot in the {Limb} {Instigator:choose(null):|by {DisplayName}}"
+  melee: "{Victim.DisplayName} was chopped in the {Limb} {Instigator:choose(null):|by {DisplayName}}"
+  zombie: "{Victim.DisplayName} was mauled by a zombie"
+  animal: "{Victim.DisplayName} was mauled by an animal"
+  suicide: "{Victim.DisplayName} was suicided"
+  kill: "{Victim.DisplayName} was killed"
+  infection: "{Victim.DisplayName} was infected to death"
+  punch: "{Victim.DisplayName} was punched in the {Limb} {Instigator:choose(null):|by {DisplayName}}"
+  breath: "{Victim.DisplayName} was suffocated to death"
+  roadkill: "{Victim.DisplayName} was roadkilled {Instigator:choose(null):|by {DisplayName}}"
+  vehicle: "{Victim.DisplayName} was blown up by a vehicle"
+  grenade: "{Victim.DisplayName} was blown up {Instigator:choose(null):|by {DisplayName}} with grenade"
+  shred: "{Victim.DisplayName} was shredded to bits"
+  landmine: "{Victim.DisplayName} was blown up by a landmine"
+  arena: "{Victim.DisplayName} was eliminated by the arena"
+  missile: "{Victim.DisplayName} was blown up {Instigator:choose(null):|by {DisplayName}} with a missile"
+  charge: "{Victim.DisplayName} was blown up {Instigator:choose(null):|by {DisplayName}} with a remote detonator"
+  splash: "{Victim.DisplayName} was blown up {Instigator:choose(null):|by {DisplayName}} with an explosive bullet"
+  sentry: "{Victim.DisplayName} was shot by a sentry gun"
+  acid: "{Victim.DisplayName} was blown up by a zombie"
+  boulder: "{Victim.DisplayName} was crushed by a zombie"
+  burner: "{Victim.DisplayName} was burned by a zombie"
+  spit: "{Victim.DisplayName} was dissolved by a zombie"
+  spark: "{Victim.DisplayName} was electrocuted by a zombie"
