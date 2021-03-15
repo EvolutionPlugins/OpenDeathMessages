@@ -20,14 +20,14 @@
 # Distance: The distance between Instigator and Victim
 
 limbParse:
-  leftFoot: leg
-  leftLeg: leg
-  rightFoot: leg
-  rightLeg: leg
-  leftHand: arm
-  leftArm: arm
-  rightHand: arm
-  rightArm: arm
+  left_foot: leg
+  left_leg: leg
+  right_foot: leg
+  right_leg: leg
+  left_hand: arm
+  left_arm: arm
+  right_hand: arm
+  right_arm: arm
   spine: torso
   skull: head
 
