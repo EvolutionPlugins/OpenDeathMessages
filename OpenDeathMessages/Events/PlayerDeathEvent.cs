@@ -1,11 +1,12 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using EvolutionPlugins.Universal.Extras.Broadcast;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
 using OpenMod.API.Eventing;
 using OpenMod.API.Users;
-using OpenMod.UnityEngine.Extensions;
+using OpenMod.Unturned.Locations;
 using OpenMod.Unturned.Players.Life.Events;
 using OpenMod.Unturned.Users;
-using SDG.Unturned;
-using System.Linq;
+using System.Drawing;
 using System.Numerics;
 using System.Threading.Tasks;
 
@@ -16,13 +17,20 @@ namespace EvolutionPlugins.OpenDeathMessages.Events
         private readonly IUnturnedUserDirectory m_UnturnedUserDirectory;
         private readonly IUserManager m_UserManager;
         private readonly IStringLocalizer m_StringLocalizer;
+        private readonly IConfiguration m_Configuration;
+        private readonly IBroadcastManager m_BroadcastManager;
+        private readonly IUnturnedLocationDirectory m_UnturnedLocationDirectory;
 
         public PlayerDeathEvent(IUnturnedUserDirectory unturnedUserDirectory, IUserManager userManager,
-            IStringLocalizer stringLocalizer)
+            IStringLocalizer stringLocalizer, IConfiguration configuration, IBroadcastManager broadcastManager,
+            IUnturnedLocationDirectory unturnedLocationDirectory)
         {
             m_UnturnedUserDirectory = unturnedUserDirectory;
             m_UserManager = userManager;
             m_StringLocalizer = stringLocalizer;
+            m_Configuration = configuration;
+            m_BroadcastManager = broadcastManager;
+            m_UnturnedLocationDirectory = unturnedLocationDirectory;
         }
 
         public async Task HandleEventAsync(object? sender, UnturnedPlayerDeathEvent @event)
@@ -35,29 +43,22 @@ namespace EvolutionPlugins.OpenDeathMessages.Events
 
             var instigatorUser = m_UnturnedUserDirectory.FindUser(@event.Instigator);
 
-            var provider = victimUser.Provider ?? m_UserManager.UserProviders.FirstOrDefault(x => x is UnturnedUserProvider);
-            if (provider == null)
-            {
-                return;
-            }
+            var victimPosition = victimUser.Player.Transform.Position;
 
-            var deathPositionUVector = @event.DeathPosition.ToUnityVector();
-            var distance = Vector3.Distance(victimUser.Player.Transform.Position,
+            var distance = Vector3.Distance(victimPosition,
                 instigatorUser?.Player.Transform.Position ?? victimUser.Player.Transform.Position);
 
-            var nearNode = LevelNodes.nodes.OfType<LocationNode>()
-                .OrderBy(x => (x.point - deathPositionUVector).sqrMagnitude)
-                .FirstOrDefault();
+            var location = m_UnturnedLocationDirectory.GetNearestLocation(victimPosition);
 
-            await provider.BroadcastAsync(m_StringLocalizer[$"deathCause:{@event.DeathCause.ToString().ToLower()}", new
+            await m_BroadcastManager.BroadcastAsync(m_StringLocalizer[$"deathCause:{@event.DeathCause.ToString().ToLower()}", new
             {
                 Victim = victimUser,
                 Instigator = instigatorUser,
                 @event.DeathPosition,
                 Distance = distance,
-                Node = nearNode?.name, // can smartFormat parse fields?
+                Node = location?.Name ?? string.Empty,
                 Limb = m_StringLocalizer[$"limbParse:{@event.Limb.ToString().ToLower()}"].Value
-            }]);
+            }], m_Configuration["iconUrl"], ColorTranslator.FromHtml(m_Configuration["color"]));
         }
     }
 }
