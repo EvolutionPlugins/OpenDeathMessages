@@ -50,7 +50,7 @@ namespace EvolutionPlugins.OpenDeathMessages.Events
 
             var location = m_UnturnedLocationDirectory.GetNearestLocation(victimPosition);
 
-            await m_BroadcastManager.BroadcastAsync(m_StringLocalizer[$"deathCause:{@event.DeathCause.ToString().ToLower()}", new
+            var message = m_StringLocalizer[$"deathCause:{@event.DeathCause.ToString().ToLower()}", new
             {
                 Victim = victimUser,
                 Instigator = instigatorUser,
@@ -58,7 +58,14 @@ namespace EvolutionPlugins.OpenDeathMessages.Events
                 Distance = distance,
                 Node = location?.Name ?? string.Empty,
                 Limb = m_StringLocalizer[$"limbParse:{@event.Limb.ToString().ToLower()}"].Value
-            }], m_Configuration["iconUrl"], ColorTranslator.FromHtml(m_Configuration["color"]));
+            }];
+
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                return;
+            }
+
+            await m_BroadcastManager.BroadcastAsync(message, m_Configuration["iconUrl"], ColorTranslator.FromHtml(m_Configuration["color"]));
         }
     }
 }
