@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using EvolutionPlugins.OpenDeathMessages.API;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using OpenMod.API.Ioc;
 using OpenMod.UnityEngine.Extensions;
 using OpenMod.Unturned.Players;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace EvolutionPlugins.OpenDeathMessages.Services
 {
-    [PluginServiceImplementation]
+    [PluginServiceImplementation(Lifetime = ServiceLifetime.Singleton)]
     public class PlayerMessager : IPlayerMessager
     {
         private readonly DisplayType m_DisplayType;

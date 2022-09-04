@@ -31,8 +31,9 @@ namespace EvolutionPlugins.OpenDeathMessages.Commands
                 throw new CommandWrongUsageException(Context);
             }
 
-            var displayType = DisplayType.Global;
             var displayTypeString = Context.Parameters[0];
+
+            DisplayType displayType;
             if (displayTypeString.Equals("group", StringComparison.InvariantCultureIgnoreCase))
             {
                 displayType = DisplayType.Group;
