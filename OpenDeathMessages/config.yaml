@@ -1,3 +1,8 @@
 iconUrl: "https://i.imgur.com/Ld1qy8j.png"
 # it can support hex color (#FFFFFF)
 color: "white"
+
+defaultDisplay:
+# If enabled then players will only see death messages from teammates.
+# If player is not in group then all death messages will be received.
+  groupDeath: false

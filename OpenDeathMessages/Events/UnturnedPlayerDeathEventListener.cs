@@ -1,8 +1,7 @@
-﻿using EvolutionPlugins.Universal.Extras.Broadcast;
+﻿using EvolutionPlugins.OpenDeathMessages.API;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using OpenMod.API.Eventing;
-using OpenMod.API.Users;
 using OpenMod.Unturned.Locations;
 using OpenMod.Unturned.Players.Life.Events;
 using OpenMod.Unturned.Users;
@@ -12,25 +11,23 @@ using System.Threading.Tasks;
 
 namespace EvolutionPlugins.OpenDeathMessages.Events
 {
-    public class PlayerDeathEvent : IEventListener<UnturnedPlayerDeathEvent>
+    public class UnturnedPlayerDeathEventListener : IEventListener<UnturnedPlayerDeathEvent>
     {
         private readonly IUnturnedUserDirectory m_UnturnedUserDirectory;
-        private readonly IUserManager m_UserManager;
         private readonly IStringLocalizer m_StringLocalizer;
         private readonly IConfiguration m_Configuration;
-        private readonly IBroadcastManager m_BroadcastManager;
         private readonly IUnturnedLocationDirectory m_UnturnedLocationDirectory;
+        private readonly IPlayerMessager m_PlayerMessager;
 
-        public PlayerDeathEvent(IUnturnedUserDirectory unturnedUserDirectory, IUserManager userManager,
-            IStringLocalizer stringLocalizer, IConfiguration configuration, IBroadcastManager broadcastManager,
-            IUnturnedLocationDirectory unturnedLocationDirectory)
+        public UnturnedPlayerDeathEventListener(IUnturnedUserDirectory unturnedUserDirectory,
+            IStringLocalizer stringLocalizer, IConfiguration configuration,
+            IUnturnedLocationDirectory unturnedLocationDirectory, IPlayerMessager playerMessager)
         {
             m_UnturnedUserDirectory = unturnedUserDirectory;
-            m_UserManager = userManager;
             m_StringLocalizer = stringLocalizer;
             m_Configuration = configuration;
-            m_BroadcastManager = broadcastManager;
             m_UnturnedLocationDirectory = unturnedLocationDirectory;
+            m_PlayerMessager = playerMessager;
         }
 
         public async Task HandleEventAsync(object? sender, UnturnedPlayerDeathEvent @event)
@@ -65,7 +62,8 @@ namespace EvolutionPlugins.OpenDeathMessages.Events
                 return;
             }
 
-            await m_BroadcastManager.BroadcastAsync(message, m_Configuration["iconUrl"], ColorTranslator.FromHtml(m_Configuration["color"]));
+            await m_PlayerMessager.SendMessageGlobalOrGroupAsync(victimUser.Player, message,
+                m_Configuration["iconUrl"], ColorTranslator.FromHtml(m_Configuration["color"]));
         }
     }
 }

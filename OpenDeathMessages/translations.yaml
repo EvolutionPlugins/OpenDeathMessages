@@ -62,3 +62,8 @@ deathCause:
   burner: "{Victim.DisplayName} was burned by a zombie"
   spit: "{Victim.DisplayName} was dissolved by a zombie"
   spark: "{Victim.DisplayName} was electrocuted by a zombie"
+
+commands:
+  deathMessageDisplay:
+    group: "Successfully set death messages display to GROUP"
+    global: "Successfully set death messsage display to GLOBAL"
