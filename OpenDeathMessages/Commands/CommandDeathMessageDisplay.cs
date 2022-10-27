@@ -2,6 +2,7 @@
 using EvolutionPlugins.OpenDeathMessages.API;
 using EvolutionPlugins.OpenDeathMessages.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
 using OpenMod.Core.Commands;
 using OpenMod.Unturned.Commands;
 using OpenMod.Unturned.Users;
@@ -17,11 +18,14 @@ namespace EvolutionPlugins.OpenDeathMessages.Commands
     {
         private readonly IPlayerMessager m_PlayerMessager;
         private readonly IConfiguration m_Configuration;
+        private readonly IStringLocalizer m_StringLocalizer;
 
-        public CommandDeathMessageDisplay(IServiceProvider serviceProvider, IPlayerMessager playerMessager, IConfiguration configuration) : base(serviceProvider)
+        public CommandDeathMessageDisplay(IServiceProvider serviceProvider, IPlayerMessager playerMessager, IConfiguration configuration,
+            IStringLocalizer stringLocalizer) : base(serviceProvider)
         {
             m_PlayerMessager = playerMessager;
             m_Configuration = configuration;
+            m_StringLocalizer = stringLocalizer;
         }
 
         protected override async UniTask OnExecuteAsync()
@@ -50,7 +54,7 @@ namespace EvolutionPlugins.OpenDeathMessages.Commands
             var user = (UnturnedUser)Context.Actor;
             await m_PlayerMessager.ChangeDisplayTypeAsync(user.Player, displayType);
 
-            await PrintAsync(m_Configuration[$"commands:deathMessageDisplay:{(displayType is DisplayType.Global ? "global" : "group")}"]);
+            await PrintAsync(m_StringLocalizer[$"commands:deathMessageDisplay:{(displayType is DisplayType.Global ? "global" : "group")}"]);
         }
     }
 }
